@@ -1,0 +1,58 @@
+{% extends 'index.html' %} {% block model %}
+
+
+<!-- Button trigger modal-->
+<div style="text-align: center; height: 20px">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmDelete">Show Result</button>
+</div>
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">Test</p>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+
+                {% if prediction == 0%}
+                <h4>Normal</h4>
+
+                {% elif prediction == 1 %}
+                <h4>Supraventricular Ectopic Beats </h4>
+
+                {% elif prediction == 2 %}
+                <h4> Ventricular Ectopic Beats</h4>
+
+                {% elif prediction == 3 %}
+                <h4>Fusion Beats</h4>
+
+                {% else %}
+                <h4>Unknown Beats</h4>
+
+                {% endif %}
+
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer flex-center">
+                <a class="btn  btn-outline-primary">OK</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal: modalConfirmDelete-->
+
+{% endblock %}
+<!--Body-->
+
+{% block script%}
+<script type="text/javascript">
+    document.getElementById("heroCarousel").style.display = "none";
+</script>
+
+{% endblock %}

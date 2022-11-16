@@ -1,0 +1,897 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/TweenLite.min.js"></script>
+<script type="text/javascript" src="js/TweenMax.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="js/highcharts.js"></script>
+<script src="js/highcharts-more.js"></script>
+<script src="js/exporting.js"></script>
+
+<title>Projectline Dashboard</title>
+
+<style>
+body{
+	margin:0;
+	background-color: #FFF;/*#369*/
+	overflow:auto;
+}
+
+.dashboardpanel{
+    height:300px;
+    width:300px;
+	left:1200px;
+    float:left;
+    background:#FFF;
+    position:relative;
+    cursor:pointer;
+    margin-left:10px;   
+    /* font-size:14px;	line-height:300px;	padding-left:10px;
+    color:#FFF;
+    font-family:Lucida Sans Unicode, Lucida Grande, sans-serif;
+    text-align:left;        */
+}
+
+#panel1{}
+
+#panel2{}
+
+#panel3{}
+
+#panel4{	margin-top:30px;    }
+
+#panel5{	margin-top:30px;    }
+
+#panel6{
+	margin-top:30px;
+	background:#6C0;
+}
+
+#content{
+	background:#333;
+	height:420px;/**/
+	width:750px;
+	position:relative;
+	top:742px;
+	z-index:0;
+}
+
+#backbutton{
+	position:relative;
+	left:1060px;
+	cursor:pointer;
+    height:44px; width:44px; margin-top:15px; float:left; position:absolute;
+}
+
+#caption{
+	position:relative;
+	top:-60px;
+	height:44px; margin-top:20px;float:left; margin-left:12px; position:absolute;
+	color:#FFF;
+	font-size:25px;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#pagecaption{
+	position:relative;
+	top:-60px;
+	height:44px; margin-top:20px;float:left; margin-left:12px; position:absolute;
+	color:#FFF;
+	font-size:25px;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#copyrightnotice {
+        text-align: center;
+        font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+        font-size: x-small;
+    }
+#copyrightnotice a:link { color: #FFF; }
+#copyrightnotice a:visited { color: #666; }
+#copyrightnotice a:hover, a:active { color: #FFF; }
+</style>
+</head>
+
+<body link="#FFFFFF">
+<!--header-->
+<div style="width:100%; height:80px; overflow:hidden; margin: 0 auto; background-color:#333">
+
+  <div style="width:950px; height:80px; margin: 0 auto; overflow:hidden; position:relative">
+		
+        <div id="caption"> Projectline Dashboard </div>
+        
+        <div id="backbutton"><img src="imgs/backbtn.png" width="44" height="44" /></div>
+        
+       <div id="pagecaption"> Caption </div>
+  </div>
+
+</div>
+
+<!--panels-->
+<div style="width:1000px; height:700px; overflow:visible; margin: 0 auto; position:relative; margin-top:35px;">
+
+	<a href="1.html" target="main"><div id="panel1" class="dashboardpanel"></div></a>
+    <a href="2.html" target="main"><div id="panel2" class="dashboardpanel"></div></a>
+    <a href="3.html" target="main"><div id="panel3" class="dashboardpanel"></div></a>
+
+    <a href="4.html" target="main"><div id="panel4" class="dashboardpanel"></div></a>
+    <a href="5.html" target="main"><div id="panel5" class="dashboardpanel"></div></a>
+    <!--6.html--> 
+    <a href="6.aspx"  target="main"><div id="panel6" class="dashboardpanel"></div></a>
+    
+    <div id="content" style="position:absolute"><iframe id="main" name="main" frameborder="0" height="100%" width="100%"></iframe></div>
+</div>
+
+<!--footer-->
+<div style="width:100%; height:442px; overflow:visible; margin: 0 auto; background-color:#333; margin-top:20px;">
+    <div id="copyrightnotice" style="width:750px; height:80px; margin: 0 auto;">
+    <p><a href="http://www.projectlineinc.com/2013/06/picture-of-the-week-62513/">Projectline Services, Inc.</a> &copy; 2013. </p>
+    </div>
+</div>
+
+<script id="StartDashboard" type="text/javascript">
+$(document).ready(function(){
+  TweenLite.to($("#caption"),2,{css:{top:0},delay:1, ease:Power2.easeOut});
+  TweenLite.to($("#panel1"),2,{css:{left:0},delay:2, ease:Power2.easeOut});
+  TweenLite.to($("#panel2"),2,{css:{left:20},delay:2.5, ease:Power2.easeOut});
+  TweenLite.to($("#panel3"),2,{css:{left:40},delay:3, ease:Power2.easeOut});
+  TweenLite.to($("#panel4"),2,{css:{left:0},delay:3.5, ease:Power2.easeOut});
+  TweenLite.to($("#panel5"),2,{css:{left:20},delay:4, ease:Power2.easeOut});
+  TweenLite.to($("#panel6"),2,{css:{left:40},delay:4.5, ease:Power2.easeOut});
+  
+  });
+  
+  
+  $("#panel1").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("About Us");
+	 
+  });
+  
+  $("#panel2").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("Our Products");
+	 
+  });
+  
+  $("#panel3").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("Who We Are?");
+	 
+  });
+  
+  $("#panel4").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("We on Map");
+	 
+  });
+  
+  $("#panel5").click(function(){
+	  TweenLite.to($("#content"),0.5,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#backbutton"),1,{css:{left:650, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("Contact Us");
+	 
+  });
+  
+   $("#panel6").click(function(){
+       TweenLite.to($("#content"), 0.5, { css: { top: 50, left: 65 }, ease: Power2.easeOut });
+	  TweenLite.to($("#backbutton"),1,{css:{left:850, rotation:-180}, ease:Power2.easeOut});
+	  TweenLite.to($("#pagecaption"),1,{css:{top:0}, ease:Power2.easeOut});
+	  TweenLite.to($("#caption"),1,{css:{top:90}, ease:Power2.easeOut});
+	  $("#pagecaption").text("Drill baby, drill!");
+	 
+  });
+  
+  
+   $("#backbutton").click(function(){
+	    TweenLite.to($("#content"),1,{css:{top:742}, ease:Power2.easeIn});
+		TweenLite.to($("#backbutton"),1,{css:{left:1060, rotation:0}, ease:Power2.easeIn});
+		TweenLite.to($("#pagecaption"),1,{css:{top:-60}, ease:Power2.easeOut});
+		TweenLite.to($("#caption"), 1, { css: { top: 0 }, ease: Power2.easeOut });
+		
+		var ifr = window.top.$('#main');
+		ifr.attr('src', 'about:blank');
+	});   
+</script>	
+
+<script id="Panel1" type="text/javascript">
+    $(function () {
+        $('#panel1').highcharts({
+            title: {
+                text: 'Monthly Average Temperature',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com',
+                x: -20
+            },
+            xAxis: {
+                //categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                //    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                categories: ['Qtr1', 'Qtr2', 'Qtr3', 'Qtr4']
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°C)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '°C'
+            },
+            legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Tokyo',
+                //data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                data: [7.0, 6.9, 9.5, 14.5]
+            }, {
+                name: 'New York',
+                //data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+                data: [-0.2, 0.8, 5.7, 11.3]
+            }, {
+                name: 'Berlin',
+                //data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+                data: [-0.9, 0.6, 3.5, 8.4]
+            }, {
+                name: 'London',
+                //data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                data: [3.9, 4.2, 5.7, 8.5]
+            }]
+        });
+    });
+</script>
+
+<script id="Panel2" type="text/javascript">
+    $(function () {
+
+        var colors = Highcharts.getOptions().colors,
+            categories = ['MSIE', 'Firefox', 'Chrome', 'Safari', 'Opera'],
+            name = 'Browser brands',
+            data = [{
+                y: 55.11,
+                color: colors[0],
+                drilldown: {
+                    name: 'MSIE versions',
+                    categories: ['MSIE 6.0', 'MSIE 7.0', 'MSIE 8.0', 'MSIE 9.0'],
+                    data: [10.85, 7.35, 33.06, 2.81],
+                    color: colors[0]
+                }
+            }, {
+                y: 21.63,
+                color: colors[1],
+                drilldown: {
+                    name: 'Firefox versions',
+                    categories: ['Firefox 2.0', 'Firefox 3.0', 'Firefox 3.5', 'Firefox 3.6', 'Firefox 4.0'],
+                    data: [0.20, 0.83, 1.58, 13.12, 5.43],
+                    color: colors[1]
+                }
+            }, {
+                y: 11.94,
+                color: colors[2],
+                drilldown: {
+                    name: 'Chrome versions',
+                    categories: ['Chrome 5.0', 'Chrome 6.0', 'Chrome 7.0', 'Chrome 8.0', 'Chrome 9.0',
+                        'Chrome 10.0', 'Chrome 11.0', 'Chrome 12.0'],
+                    data: [0.12, 0.19, 0.12, 0.36, 0.32, 9.91, 0.50, 0.22],
+                    color: colors[2]
+                }
+            }, {
+                y: 7.15,
+                color: colors[3],
+                drilldown: {
+                    name: 'Safari versions',
+                    categories: ['Safari 5.0', 'Safari 4.0', 'Safari Win 5.0', 'Safari 4.1', 'Safari/Maxthon',
+                        'Safari 3.1', 'Safari 4.1'],
+                    data: [4.55, 1.42, 0.23, 0.21, 0.20, 0.19, 0.14],
+                    color: colors[3]
+                }
+            }, {
+                y: 2.14,
+                color: colors[4],
+                drilldown: {
+                    name: 'Opera versions',
+                    categories: ['Opera 9.x', 'Opera 10.x', 'Opera 11.x'],
+                    data: [0.12, 0.37, 1.65],
+                    color: colors[4]
+                }
+            }];
+
+        function setChart(name, categories, data, color) {
+            chart.xAxis[0].setCategories(categories, false);
+            chart.series[0].remove(false);
+            chart.addSeries({
+                name: name,
+                data: data,
+                color: color || 'white'
+            }, false);
+            chart.redraw();
+        }
+
+        var chart = $('#panel2').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Browser market share, April, 2011'
+            },
+            subtitle: {
+                text: 'Click the columns to view versions. Click again to view brands.'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: 'Total percent market share'
+                }
+            },
+            plotOptions: {
+                column: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                var drilldown = this.drilldown;
+                                if (drilldown) { // drill down
+                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                } else { // restore
+                                    setChart(name, categories, data);
+                                }
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        color: colors[0],
+                        style: {
+                            fontWeight: 'bold'
+                        },
+                        formatter: function () {
+                            return this.y + '%';
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    var point = this.point,
+                        s = this.x + ':<b>' + this.y + '% market share</b><br/>';
+                    if (point.drilldown) {
+                        s += 'Click to view ' + point.category + ' versions';
+                    } else {
+                        s += 'Click to return to browser brands';
+                    }
+                    return s;
+                }
+            },
+            series: [{
+                name: name,
+                data: data,
+                color: 'white'
+            }],
+            exporting: {
+                enabled: false
+            }
+        })
+        .highcharts(); // return chart
+    });
+</script>
+
+<script id="Panel3" type="text/javascript">
+    $(function () {
+
+        var colors = Highcharts.getOptions().colors,
+            categories = ['MSIE', 'Firefox', 'Chrome', 'Safari', 'Opera'],
+            name = 'Browser brands',
+            data = [{
+                y: 55.11,
+                color: colors[0],
+                drilldown: {
+                    name: 'MSIE versions',
+                    categories: ['MSIE 6.0', 'MSIE 7.0', 'MSIE 8.0', 'MSIE 9.0'],
+                    data: [10.85, 7.35, 33.06, 2.81],
+                    color: colors[0]
+                }
+            }, {
+                y: 21.63,
+                color: colors[1],
+                drilldown: {
+                    name: 'Firefox versions',
+                    categories: ['Firefox 2.0', 'Firefox 3.0', 'Firefox 3.5', 'Firefox 3.6', 'Firefox 4.0'],
+                    data: [0.20, 0.83, 1.58, 13.12, 5.43],
+                    color: colors[1]
+                }
+            }, {
+                y: 11.94,
+                color: colors[2],
+                drilldown: {
+                    name: 'Chrome versions',
+                    categories: ['Chrome 5.0', 'Chrome 6.0', 'Chrome 7.0', 'Chrome 8.0', 'Chrome 9.0',
+                        'Chrome 10.0', 'Chrome 11.0', 'Chrome 12.0'],
+                    data: [0.12, 0.19, 0.12, 0.36, 0.32, 9.91, 0.50, 0.22],
+                    color: colors[2]
+                }
+            }, {
+                y: 7.15,
+                color: colors[3],
+                drilldown: {
+                    name: 'Safari versions',
+                    categories: ['Safari 5.0', 'Safari 4.0', 'Safari Win 5.0', 'Safari 4.1', 'Safari/Maxthon',
+                        'Safari 3.1', 'Safari 4.1'],
+                    data: [4.55, 1.42, 0.23, 0.21, 0.20, 0.19, 0.14],
+                    color: colors[3]
+                }
+            }, {
+                y: 2.14,
+                color: colors[4],
+                drilldown: {
+                    name: 'Opera versions',
+                    categories: ['Opera 9.x', 'Opera 10.x', 'Opera 11.x'],
+                    data: [0.12, 0.37, 1.65],
+                    color: colors[4]
+                }
+            }];
+
+
+        // Build the data arrays
+        var browserData = [];
+        var versionsData = [];
+        for (var i = 0; i < data.length; i++) {
+
+            // add browser data
+            browserData.push({
+                name: categories[i],
+                y: data[i].y,
+                color: data[i].color
+            });
+
+            // add version data
+            for (var j = 0; j < data[i].drilldown.data.length; j++) {
+                var brightness = 0.2 - (j / data[i].drilldown.data.length) / 5;
+                versionsData.push({
+                    name: data[i].drilldown.categories[j],
+                    y: data[i].drilldown.data[j],
+                    color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                });
+            }
+        }
+
+        // Create the chart
+        $('#panel3').highcharts({
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Browser market share, April, 2011'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total percent market share'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false,
+                    center: ['50%', '50%']
+                }
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            series: [{
+                name: 'Browsers',
+                data: browserData,
+                size: '60%',
+                dataLabels: {
+                    formatter: function () {
+                        return this.y > 5 ? this.point.name : null;
+                    },
+                    color: 'white',
+                    distance: -30
+                }
+            }, {
+                name: 'Versions',
+                data: versionsData,
+                size: '80%',
+                innerSize: '60%',
+                dataLabels: {
+                    formatter: function () {
+                        // display only if larger than 1
+                        return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
+                    }
+                }
+            }]
+        });
+    });
+
+</script>
+
+<script id="Panel4" type="text/javascript">
+    $(function () {
+        $('#panel4').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Temperature & Rainfall in Tokyo'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: [{
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            }],
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}°C',
+                    style: {
+                        color: '#89A54E'
+                    }
+                },
+                title: {
+                    text: 'Temperature',
+                    style: {
+                        color: '#89A54E'
+                    }
+                }
+            }, { // Secondary yAxis
+                title: {
+                    text: 'Rainfall',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                labels: {
+                    format: '{value} mm',
+                    style: {
+                        color: '#4572A7'
+                    }
+                },
+                opposite: true
+            }],
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                layout: 'horizontal',
+                align: 'center',
+                //x: 120,
+                verticalAlign: 'bottom',
+                //y: 100,
+                floating: false,
+                //backgroundColor: '#FFFFFF'
+            },
+            series: [{
+                name: 'Rainfall',
+                color: '#4572A7',
+                type: 'column',
+                yAxis: 1,
+                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+                tooltip: {
+                    valueSuffix: ' mm'
+                }
+
+            }, {
+                name: 'Temperature',
+                color: '#89A54E',
+                type: 'spline',
+                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+                tooltip: {
+                    valueSuffix: '°C'
+                }
+            }]
+        });
+    });
+</script>
+
+<script id="Panel5" type="text/javascript">
+    $(function () {
+        $('#panel5').highcharts({
+            chart: {
+                type: 'bubble',
+                zoomType: 'xy'
+            },
+
+            title: {
+                text: 'Highcharts Bubbles'
+            },
+
+            series: [{
+                data: [[97, 36, 79], [94, 74, 60], [68, 76, 58], [64, 87, 56], [68, 27, 73], [74, 99, 42], [7, 93, 87], [51, 69, 40], [38, 23, 33], [57, 86, 31]]
+            }, {
+                data: [[25, 10, 87], [2, 75, 59], [11, 54, 8], [86, 55, 93], [5, 3, 58], [90, 63, 44], [91, 33, 17], [97, 3, 56], [15, 67, 48], [54, 25, 81]]
+            }, {
+                data: [[47, 47, 21], [20, 12, 4], [6, 76, 91], [38, 30, 60], [57, 98, 64], [61, 17, 80], [83, 60, 13], [67, 78, 75], [64, 12, 10], [30, 77, 82]]
+            }]
+        });
+    });
+</script>
+
+
+<script id="GrayTheme" type="text/javascript">
+    /**
+     * Gray theme for Highcharts JS
+     * @author Torstein Hønsi
+     */
+
+    Highcharts.theme = {
+        colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee",
+           "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+        chart: {
+            backgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                   [0, 'rgb(96, 96, 96)'],
+                   [1, 'rgb(16, 16, 16)']
+                ]
+            },
+            borderWidth: 0,
+            borderRadius: 15,
+            plotBackgroundColor: null,
+            plotShadow: false,
+            plotBorderWidth: 0
+        },
+        title: {
+            style: {
+                color: '#FFF',
+                font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+            }
+        },
+        subtitle: {
+            style: {
+                color: '#DDD',
+                font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+            }
+        },
+        xAxis: {
+            gridLineWidth: 0,
+            lineColor: '#999',
+            tickColor: '#999',
+            labels: {
+                style: {
+                    color: '#999',
+                    fontWeight: 'bold'
+                }
+            },
+            title: {
+                style: {
+                    color: '#AAA',
+                    font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            alternateGridColor: null,
+            minorTickInterval: null,
+            gridLineColor: 'rgba(255, 255, 255, .1)',
+            minorGridLineColor: 'rgba(255,255,255,0.07)',
+            lineWidth: 0,
+            tickWidth: 0,
+            labels: {
+                style: {
+                    color: '#999',
+                    fontWeight: 'bold'
+                }
+            },
+            title: {
+                style: {
+                    color: '#AAA',
+                    font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+                }
+            }
+        },
+        legend: {
+            itemStyle: {
+                color: '#CCC'
+            },
+            itemHoverStyle: {
+                color: '#FFF'
+            },
+            itemHiddenStyle: {
+                color: '#333'
+            }
+        },
+        labels: {
+            style: {
+                color: '#CCC'
+            }
+        },
+        tooltip: {
+            backgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                   [0, 'rgba(96, 96, 96, .8)'],
+                   [1, 'rgba(16, 16, 16, .8)']
+                ]
+            },
+            borderWidth: 0,
+            style: {
+                color: '#FFF'
+            }
+        },
+
+
+        plotOptions: {
+            series: {
+                shadow: true
+            },
+            line: {
+                dataLabels: {
+                    color: '#CCC'
+                },
+                marker: {
+                    lineColor: '#333'
+                }
+            },
+            spline: {
+                marker: {
+                    lineColor: '#333'
+                }
+            },
+            scatter: {
+                marker: {
+                    lineColor: '#333'
+                }
+            },
+            candlestick: {
+                lineColor: 'white'
+            }
+        },
+
+        toolbar: {
+            itemStyle: {
+                color: '#CCC'
+            }
+        },
+
+        navigation: {
+            buttonOptions: {
+                symbolStroke: '#DDDDDD',
+                hoverSymbolStroke: '#FFFFFF',
+                theme: {
+                    fill: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                        stops: [
+                           [0.4, '#606060'],
+                           [0.6, '#333333']
+                        ]
+                    },
+                    stroke: '#000000'
+                }
+            }
+        },
+
+        // scroll charts
+        rangeSelector: {
+            buttonTheme: {
+                fill: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                       [0.4, '#888'],
+                       [0.6, '#555']
+                    ]
+                },
+                stroke: '#000000',
+                style: {
+                    color: '#CCC',
+                    fontWeight: 'bold'
+                },
+                states: {
+                    hover: {
+                        fill: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                               [0.4, '#BBB'],
+                               [0.6, '#888']
+                            ]
+                        },
+                        stroke: '#000000',
+                        style: {
+                            color: 'white'
+                        }
+                    },
+                    select: {
+                        fill: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                               [0.1, '#000'],
+                               [0.3, '#333']
+                            ]
+                        },
+                        stroke: '#000000',
+                        style: {
+                            color: 'yellow'
+                        }
+                    }
+                }
+            },
+            inputStyle: {
+                backgroundColor: '#333',
+                color: 'silver'
+            },
+            labelStyle: {
+                color: 'silver'
+            }
+        },
+
+        navigator: {
+            handles: {
+                backgroundColor: '#666',
+                borderColor: '#AAA'
+            },
+            outlineColor: '#CCC',
+            maskFill: 'rgba(16, 16, 16, 0.5)',
+            series: {
+                color: '#7798BF',
+                lineColor: '#A6C7ED'
+            }
+        },
+
+        scrollbar: {
+            barBackgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                   [0.4, '#888'],
+                   [0.6, '#555']
+                ]
+            },
+            barBorderColor: '#CCC',
+            buttonArrowColor: '#CCC',
+            buttonBackgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                   [0.4, '#888'],
+                   [0.6, '#555']
+                ]
+            },
+            buttonBorderColor: '#CCC',
+            rifleColor: '#FFF',
+            trackBackgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                   [0, '#000'],
+                   [1, '#333']
+                ]
+            },
+            trackBorderColor: '#666'
+        },
+
+        // special colors for some of the demo examples
+        legendBackgroundColor: 'rgba(48, 48, 48, 0.8)',
+        legendBackgroundColorSolid: 'rgb(70, 70, 70)',
+        dataLabelsColor: '#444',
+        textColor: '#E0E0E0',
+        maskColor: 'rgba(255,255,255,0.3)'
+    };
+
+    // Apply the theme
+    var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+</script>
+
+</body>
+</html>
