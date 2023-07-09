@@ -1,21 +1,16 @@
-from flask import Flask
-
-#To render templates 
-from flask import render_template
+from flask import Flask, render_template, request
 import os
-from flask import request
 import tensorflow as tf
 from tensorflow import keras
 import cv2
 from PIL import Image, ImageDraw
 import pandas as pd
 import numpy as np
-import os
 from pylsd.lsd import lsd
-#import image_slicer
 import h5py
 
-#instantiating Flask application into variable **app** 
+
+
 app = Flask(__name__)
 
 
@@ -64,7 +59,8 @@ def unsharp_mask(image, kernel_size=(5, 5), sigma=1.0, amount=1.0, threshold=0):
     return sharpened
 
 def example(image):
-    #RESIZE THE IMAGE
+    '''RESIZE THE IMAGE
+    '''
     r = 500.0/image.shape[1]
     dim = (500, int(image.shape[0] * r))
     img_sharp = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
@@ -82,94 +78,79 @@ def Sort_Tuple(tup):
     return tup
 
 
-@app.route("/model")
+@app.route("/")
 def model():
-    return render_template("model.html")
-
-#Root page of the website
-@app.route('/', methods=['GET', 'POST'])
-
-def upload_predict():
-    if request.method == 'POST':
-        image_file = request.files['image']
-        if image_file:
-            
-            image_location = os.path.join(UPLOAD_FOLDER,image_file.filename)
-            image_file.save(image_location)
-            fullName = image_location
-            (folder, imgName) = os.path.split(fullName)
-            #print(fullName)
-            img = cv2.imread(fullName)
-            parts = slice_image(fullName, cols=1, rows=2)
-            #print(parts)
-            np_image = np.array(parts[1])
-            bimg= cv2.cvtColor(np_image, cv2.COLOR_RGB2BGR)
-            gray = cv2.cvtColor(bimg, cv2.COLOR_BGR2GRAY)
-            ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
-            corners = cv2.goodFeaturesToTrack(thresh, 100, 0.01, 55)
-            corners = np.int0(corners)
-            columns = len(corners)
-            
+    return render_template("index.html")
 
 
-            #SLICE IMAGES
-            columns = 4  # Replace with the desired number of columns
-            rows = 1  # Replace with the desired number of rows
+@app.route('/predict', methods=['POST'])
+def predict():
+    image_file = request.files['image']
+    if image_file:
 
-            # Assuming you have already defined and obtained 'fullName' with the path to the image file
-            waves = slice_image(fullName, cols=columns, rows=rows)
+        image_location = os.path.join(UPLOAD_FOLDER,image_file.filename)
+        image_file.save(image_location)
+        fullName = image_location
+               
+        parts = slice_image(fullName, cols=1, rows=2)
+       
+        np_image = np.array(parts[1])
+        bimg= cv2.cvtColor(np_image, cv2.COLOR_RGB2BGR)
+        gray = cv2.cvtColor(bimg, cv2.COLOR_BGR2GRAY)
+        ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
+        corners = cv2.goodFeaturesToTrack(thresh, 100, 0.01, 55)
+        corners = np.int0(corners)
+        #columns = len(corners)
+        
+        waves = slice_image(fullName, cols=4, rows=1)
 
-            #waves = image_slicer.slice(fullName,col=columns,row=1, save = False)
+        segt = []
+        for wv in waves:
+            seg = cv2.cvtColor(np.array(wv), cv2.COLOR_RGB2BGR)
+            segt.append(seg)
 
+        allpoints = []
 
-            segt = []
-            for wv in waves:
-                seg = cv2.cvtColor(np.array(wv), cv2.COLOR_RGB2BGR)
-                segt.append(seg)
-
-            allpoints = []
-
-            for seg in segt:
-                points = []
-                corners = None
-                sharpen = example(seg)
-                gray = cv2.cvtColor(sharpen, cv2.COLOR_BGR2GRAY)
-                ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
-                corners = cv2.goodFeaturesToTrack(thresh, 186, 0.01, 5)
-                corners = np.int0(corners)
-                for corner in corners:
-                    x, y = corner.ravel()
-                    point = tuple((x,y))
-                    points.append(point)
-                allpoints.append(points)
-    
-
+        for seg in segt:
             points = []
-            sorted_points = []
-            for points in allpoints:
-                points = Sort_Tuple(points) 
-                sorted_points.append(points)                    
-            
-            for tup in sorted_points:
-                input = []
-                output = []
-                for i in range(0,len(tup)):
-                    input.append(float(tup[i][1])/500)
-                while(len(input)<187):
-                        input.append(0)    
-                inpt_data = pd.DataFrame(data = [input])
-                new_model = tf.keras.models.load_model('ecg_model.h5') 
-                #ypred = new_model.predict_classes([inpt_data])
-                predictions = new_model.predict([inpt_data])
-                ypred = np.argmax(predictions, axis=1)
-                ans = 0
-                print(ypred)
-                for y in ypred:
-                    if( y == 1 or y == 2 or y == 3 or y == 4):
-                        ans = y
-                        break
+            corners = None
+            sharpen = example(seg)
+            gray = cv2.cvtColor(sharpen, cv2.COLOR_BGR2GRAY)
+            ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
+            corners = cv2.goodFeaturesToTrack(thresh, 186, 0.01, 5)
+            corners = np.int0(corners)
+            for corner in corners:
+                x, y = corner.ravel()
+                point = tuple((x,y))
+                points.append(point)
+            allpoints.append(points)
 
-            return render_template('model.html',prediction = ans)
+
+        points = []
+        sorted_points = []
+        for points in allpoints:
+            points = Sort_Tuple(points) 
+            sorted_points.append(points)                    
+        
+        for tup in sorted_points:
+            input = []
+            output = []
+            for i in range(0,len(tup)):
+                input.append(float(tup[i][1])/500)
+            while(len(input)<187):
+                    input.append(0)    
+            inpt_data = pd.DataFrame(data = [input])
+            new_model = tf.keras.models.load_model('ecg_model.h5') 
+            predictions = new_model.predict([inpt_data])
+            ypred = np.argmax(predictions, axis=1)
+            ans = 0
+            print(ypred)
+            for y in ypred:
+                if( y == 1 or y == 2 or y == 3 or y == 4):
+                    ans = y
+                    break
+
+        return render_template('index.html',label = ans)
 
     return render_template('index.html')
 

@@ -1,293 +1,39 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
-    <!-- Favicons -->
-    <link href="static/assets/img/favicon.png" rel="icon" />
-    <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
-    <!-- Vendor CSS Files -->
-    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="static/assets/vendor/icofont/icofont.min.css" rel="stylesheet" />
-    <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link href="static/assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
-    <link href="static/assets/vendor/owl.carousel/static/assets/owl.carousel.min.css" rel="stylesheet" />
-    <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet" />
-    <link href="static/assets/vendor/aos/aos.css" rel="stylesheet" />
-    <!-- Template Main CSS File -->
-    <link href="static/assets/css/style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Research Topic Modelling</title>
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <!-- ======= Top Bar ======= -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <div id="map"></div>
-    <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-        <div class="container d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center">
-                <i class="icofont-clock-time"></i> Health for All. All for Health
-            </div>
-            <div class="d-flex align-items-center">
-                <i class="icofont-email"></i> Contact Us Now : ecgreportanalyzer@gmail.com
-            </div>
+    <div class="container">
+        <h1>Research Topic Modelling</h1>
+
+        <form id="emotion-form" action="{{ url_for('predict') }}" method="POST" enctype="multipart/form-data">
+            <input id="image" name="image" type="file" accept="image/*" required="required">
+            <br><br>
+            <button type="submit">Predict</button>
+        </form>
+        {{label}}    
+        <div id="background-shapes">
+            <div id="shape-1"></div>
+            <div id="shape-2"></div>
+            <div id="shape-3"></div>
+        </div>
+
+        <div id="footer">
+            <p>Check out the code on:</p>
+            <a href="https://github.com/ShubhamMisar-12/ReasearchTextTopicModelling" target="_blank">GitHub</a>
+            <span>|</span>
+            <a href="https://www.kaggle.com/code/shubhammisar/topic-modelling-lda-tfidf" target="_blank">Kaggle</a>
+            <p>Connect with me:</p>
+            <a href="https://www.linkedin.com/in/shubham-sanjay-misar/" target="_blank">LinkedIn</a>
+            <span>|</span>
+            <a href="https://twitter.com/ShubhamMisar12" target="_blank">Twitter</a>
         </div>
     </div>
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" style="height: 450px;">
-        <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active" style="background-image: url(static/assets/img/slide/slide-1.jpg)">
-                    <div class="container">
-                        <h2>Please Upload the ECG Image</h2>
-                        
-                    </div>
-                </div>
 
-            </div>
-
-        </div>
-    </section>
-    {% block model %}{% endblock %}
-    <!-- End Hero -->
-
-    <main id="main">
-        <!-- ======= Featured Services Section ======= -->
-        <section id="featured-services" class="featured-services">
-            <div class="container" data-aos="fade-up">
-                <div class="row">
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                            <div class="icon"><i class="icofont-heart-beat"></i></div>
-                            <h4 class="title"><a href="">Step 1</a></h4>
-                            <p class="description">
-                                Click on the button on the Top Right Corner Named "Scan ECG Report". Please make sure you scan only the graphical image.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-                            <div class="icon"><i class="icofont-drug"></i></div>
-                            <h4 class="title"><a href="">Step 2</a></h4>
-                            <p class="description">Please wait for results to generate.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-                            <div class="icon"><i class="icofont-thermometer-alt"></i></div>
-                            <h4 class="title"><a href="">Step 3</a></h4>
-                            <p class="description">
-                                We would be happy if your report is normal, your procedure ends here. But if not , Do not worry. Check doctors from the doctors section in the Menu.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-                            <div class="icon"><i class="icofont-dna-alt-1"></i></div>
-                            <h4 class="title"><a href="">Step 4</a></h4>
-                            <p class="description">
-                                After Surfing about the doctors, click on the button to make appointment.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Featured Services Section -->
-        <!-- ======= Cta Section ======= -->
-
-        <!-- End Cta Section -->
-        <!-- ======= About Us Section ======= -->
-        <section id="about" class="about">
-            <div class="container" data-aos="fade-up">
-                <div class="section-title">
-                    <h2>About Us</h2>
-                    <p style="text-align: left">
-                        We are convinced that 'quality' and 'lowest cost' are not mutually exclusive when it comes to healthcare delivery. In fact, we are well on our way to demonstrate that we are not running our institution as just another number-only business, but are attractively
-                        placed to create an affordable, globally-benchmarked quality-driven healthcare services model.
-                        <br />
-                        <br /> It is the exciting prospect that stokes our motivation to do bigger and better for the glory of the country.
-                    </p>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6" data-aos="fade-right">
-                        <img src="{{url_for('static', filename='assets/img/ECG_Home.jpg')}}" class="img-fluid" alt="" />
-                    </div>
-                    <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
-                        <h3>
-                            General Summary Of ECG so that you understand more about your Health Issue.
-                        </h3>
-                        <p class="font-italic">
-                            Electrocardiography is the process of producing an electrocardiogram (ECG)
-                        </p>
-                        <ul>
-                            <li>
-                                <i class="icofont-check-circled"></i>It is a graph of voltage versus time of the electrical activity of the heart using electrodes placed on the skin.
-                            </li>
-                            <li>
-                                <i class="icofont-check-circled"></i> Ten electrodes are placed on the patient's limbs and on the surface of the chest.
-                            </li>
-                            <li>
-                                <i class="icofont-check-circled"></i>There are three main components to an ECG: the P wave, which represents the depolarization of the atria; the QRS complex, which represents the depolarization of the ventricles; and the
-                                T wave, which represents the repolarization of the ventricles
-                            </li>
-                        </ul>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End About Us Section -->
-        <!-- ======= Counts Section ======= -->
-        <section id="counts" class="counts">
-            <div class="container" data-aos="fade-up">
-                <div class="row no-gutters">
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-                        <div class="count-box">
-                            <i class="icofont-doctor-alt"></i>
-                            <span data-toggle="counter-up">1</span>
-                            <p><strong></strong>Report analysis done right at your home.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-                        <div class="count-box">
-                            <i class="icofont-patient-bed"></i>
-                            <span data-toggle="counter-up">2</span>
-                            <p><strong></strong> Find talented doctors right here.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-                        <div class="count-box">
-                            <i class="icofont-laboratory"></i>
-                            <span data-toggle="counter-up">3</span>
-                            <p>
-                                <strong></strong> A single click solution to all your problems.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-                        <div class="count-box">
-                            <i class="icofont-award"></i>
-                            <span data-toggle="counter-up">4</span>
-                            <p>
-                                <strong></strong> Don't bother to step out of your home just to check your report. We do it for you right here.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Appointment Section -->
-        <section id="doctors" class="doctors section-bg">
-            <div class="container" data-aos="fade-up">
-                <div class="section-title">
-                    <h2>Find Hospital</h2>
-                    <p>
-                        These Hospitals comprises leading specialists who are highly skilled and experienced in their respective arena of all health related problems.
-                    </p>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                        <div class="member" data-aos="fade-up" data-aos-delay="100">
-                            <div class="member-img">
-                                <img src="static/assets/img/Hospital_1.jpg" class="img-fluid" alt="" />
-                            </div>
-                            <div class="member-info">
-                                <h4>Demo Hospital 1</h4>
-                                <span>Matunga, Mumbai, Maharashtra</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                        <div class="member" data-aos="fade-up" data-aos-delay="200">
-                            <div class="member-img">
-                                <img src="static/assets/img/Hospital_2.jpg" class="img-fluid" alt="" />
-                            </div>
-                            <div class="member-info">
-                                <h4>Demo Hospital 2</h4>
-                                <span> Sion ,Mumbai, Maharashtra</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                        <div class="member" data-aos="fade-up" data-aos-delay="300">
-                            <div class="member-img">
-                                <img src="static/assets/img/Hospital_3.jpg" class="img-fluid" alt="" />
-                            </div>
-                            <div class="member-info">
-                                <h4>Demo Hospital 3</h4>
-                                <span>Colaba, Mumbai, Maharashtra</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                        <div class="member" data-aos="fade-up" data-aos-delay="400">
-                            <div class="member-img">
-                                <img src="static/assets/img/Hospital_5.jpg" class="img-fluid" alt="" />
-                                <div class="social">
-                                    <a href=""><i class="icofont-twitter"></i></a>
-                                    <a href=""><i class="icofont-facebook"></i></a>
-                                    <a href=""><i class="icofont-instagram"></i></a>
-                                    <a href=""><i class="icofont-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h4>Demo Hospital 4</h4>
-                                <span> Andheri, Mumbai, Maharashtra</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End Doctors Section -->
-        <!-- ======= Footer ======= -->
-        <footer id="footer">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-info">
-                                <h3>ECG Report Analyzer</h3>
-                                <p>
-                                    Mahavir Education Trust Chowk, W.T Patil Marg, Chembur, next to Duke's Company, <br /> Mumbai, Maharashtra 400088<br /><br />
-                                    <strong>Contact Us : </strong>ecgreportanalyzer@gmail.com<br />
-                                </p>
-                                <div class="social-links mt-3">
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            </div>
-        </footer>
-        <!-- End Footer -->
-        <div id="preloader"></div>
-        <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-        <!-- Vendor JS Files -->
-        <script src="static/assets/vendor/jquery/jquery.min.js"></script>
-        <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-        <script src="static/assets/vendor/php-email-form/validate.js"></script>
-        <script src="static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-        <script src="static/assets/vendor/counterup/counterup.min.js"></script>
-        <script src="static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-        <script src="static/assets/vendor/venobox/venobox.min.js"></script>
-        <script src="static/assets/vendor/aos/aos.js"></script>
-        <!-- Template Main JS File -->
-        <script src="static/assets/js/main.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
-
 </html>
