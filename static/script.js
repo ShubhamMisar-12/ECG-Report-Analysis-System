@@ -1,4 +1,4 @@
-var form = document.getElementById('emotion-form');
+var form = document.getElementById('image-form');
 var fileInput = document.getElementById('image');
 
 // Add event listener to the form submission
