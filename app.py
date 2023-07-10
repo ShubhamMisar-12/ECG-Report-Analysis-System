@@ -7,7 +7,6 @@ from PIL import Image, ImageDraw
 import pandas as pd
 import numpy as np
 from pylsd.lsd import lsd
-import h5py
 
 
 
