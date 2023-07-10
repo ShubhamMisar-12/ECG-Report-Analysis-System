@@ -1,47 +1,90 @@
-## Research Paper 
+# ECG Report Analysis System
 
-https://ieeexplore.ieee.org/document/9645917
+This project implements a deep learning model for predicting cardiac arrhythmia based on raw electrocardiogram (ECG) data. The model is trained to classify ECG reports into five categories.
+
+- Class 0: Normal ECG
+- Class 1: Supraventricular ectopic beats
+- Class 2: Ventricular ectopic beats
+- Class 3: Fusion Beats
+- Class 4: Unknown Beats
+
+## Research Paper
+
+The research paper associated with this project can be found at [IEEE Xplore](https://ieeexplore.ieee.org/document/9645917).
 
 ## Copyright
 
-https://copyright.gov.in/
-Registration Number : L-112342/2022
+This project is protected by copyright. The registration details are as follows:
 
-## Background 
+- Registration Number: L-112342/2022
+- Copyright Office: [https://copyright.gov.in/](https://copyright.gov.in/)
 
-An electrocardiogram  (ECG) is a simple test  that can be used to check electrical activity.  ECG is a fundamental  tool in the everyday  practice of clinical  medicine, with more  than 300 million ECGs  obtained annually  worldwide
+## Background
 
-The model takes input as raw ECG data and outputs prediction of cardiac arrythmia into classes. The ECG model can predict reports into the five categories.
-
-Class 0  Normal ECG
-
-Class 1  Supraventricular ectopic beats
-
-Class 2  Ventricular ectopic beats
-
-Class 3  Fusion Beats 
-
-Class 4  Unknown Beats
+An electrocardiogram (ECG) is a simple test that can be used to check electrical activity. ECG is a fundamental tool in the everyday practice of clinical medicine, with more than 300 million ECGs obtained annually worldwide.
 
 ## Application
 
-The application is based on flask framework.
+The application is built using the Flask framework. It provides a web interface to upload an image of an ECG report and obtain analysis results.
 
-The flask server runs the ECGModel.py file to open the web app
+## Folder Structure
 
-Upload the image of ECG report to get the report analysis
+- `static/`: Contains static files such as CSS and JavaScript.
+- `templates/`: Contains HTML templates for the web application.
+- `app.py`: The main Flask application file.
+- `ecg_model.h5`: The trained deep learning model for ECG classification.
 
-## Required Packeges
+## Prerequisites
 
-flask
+Make sure you have the following packages installed:
 
-tensorflow 
+- Flask
+- TensorFlow
+- OpenCV (cv2)
+- PIL (Python Imaging Library)
+- pylsd.lsd
 
-cv2
+## Installation
 
-PIL 
+1. Clone the repository:
 
-pylsd.lsd 
+```bash
+git clone https://github.com/YourUsername/ResearchPaperECG.git
 
-image_slicer
+```
 
+2. Navigate to the project directory:
+
+3. Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+1. Start the application:
+
+```bash
+python app.py
+
+```
+
+2. Open a web browser and visit [http://localhost:5000](http://localhost:5000).
+
+3. Upload an image of an ECG report.
+
+4. Click the "Submit" button to process the image and obtain the analysis results.
+
+5. The analysis results, including the predicted ECG class, will be displayed on the page.
+
+## Contributing
+
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+Please make sure to update the placeholders (YourUsername, project names, links, etc.) with your actual project information.
+
+Let me know if you need any further assistance!
