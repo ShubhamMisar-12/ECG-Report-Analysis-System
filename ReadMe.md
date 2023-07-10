@@ -49,7 +49,7 @@ Make sure you have the following packages installed:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YourUsername/ResearchPaperECG.git
+git clone https://github.com/ShubhamMisar-12/ECG-Report-Analysis-System
 
 ```
 
