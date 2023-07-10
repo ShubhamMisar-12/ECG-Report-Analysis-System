@@ -70,7 +70,7 @@ python app.py
 
 ```
 
-2. Open a web browser and visit [Website](xxx).
+2. Open in your browers in a localhost ip address.
 
 3. Upload an image of an ECG report.
 

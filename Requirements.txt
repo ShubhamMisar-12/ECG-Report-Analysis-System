@@ -5,4 +5,4 @@ Pillow
 pandas
 numpy
 pylsd
-h5py
+lsd
