@@ -77,6 +77,13 @@ def Sort_Tuple(tup):
                 tup[j + 1] = temp
     return tup
 
+anomaly_mapping = {
+    0: "Normal",
+    1: "Supraventricular Ectopic Beats",
+    2: "Ventricular Ectopic Beats",
+    3: "Fusion Beats",
+    4: "Unknown Beats"
+}
 
 @app.route("/")
 def model():
@@ -85,74 +92,73 @@ def model():
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    ans = None
     image_file = request.files['image']
-    if image_file:
+ 
+    image_location = os.path.join(UPLOAD_FOLDER,image_file.filename)
+    image_file.save(image_location)
+    fullName = image_location
+            
+    parts = slice_image(fullName, cols=1, rows=2)
+    
+    np_image = np.array(parts[1])
+    bimg= cv2.cvtColor(np_image, cv2.COLOR_RGB2BGR)
+    gray = cv2.cvtColor(bimg, cv2.COLOR_BGR2GRAY)
+    ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
+    corners = cv2.goodFeaturesToTrack(thresh, 100, 0.01, 55)
+    corners = np.int0(corners)
+    #columns = len(corners)
+    
+    waves = slice_image(fullName, cols=4, rows=1)
 
-        image_location = os.path.join(UPLOAD_FOLDER,image_file.filename)
-        image_file.save(image_location)
-        fullName = image_location
-               
-        parts = slice_image(fullName, cols=1, rows=2)
-       
-        np_image = np.array(parts[1])
-        bimg= cv2.cvtColor(np_image, cv2.COLOR_RGB2BGR)
-        gray = cv2.cvtColor(bimg, cv2.COLOR_BGR2GRAY)
-        ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
-        corners = cv2.goodFeaturesToTrack(thresh, 100, 0.01, 55)
-        corners = np.int0(corners)
-        #columns = len(corners)
-        
-        waves = slice_image(fullName, cols=4, rows=1)
+    segt = []
+    for wv in waves:
+        seg = cv2.cvtColor(np.array(wv), cv2.COLOR_RGB2BGR)
+        segt.append(seg)
 
-        segt = []
-        for wv in waves:
-            seg = cv2.cvtColor(np.array(wv), cv2.COLOR_RGB2BGR)
-            segt.append(seg)
+    allpoints = []
 
-        allpoints = []
-
-        for seg in segt:
-            points = []
-            corners = None
-            sharpen = example(seg)
-            gray = cv2.cvtColor(sharpen, cv2.COLOR_BGR2GRAY)
-            ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
-            corners = cv2.goodFeaturesToTrack(thresh, 186, 0.01, 5)
-            corners = np.int0(corners)
-            for corner in corners:
-                x, y = corner.ravel()
-                point = tuple((x,y))
-                points.append(point)
-            allpoints.append(points)
-
-
+    for seg in segt:
         points = []
-        sorted_points = []
-        for points in allpoints:
-            points = Sort_Tuple(points) 
-            sorted_points.append(points)                    
-        
-        for tup in sorted_points:
-            input = []
-            output = []
-            for i in range(0,len(tup)):
-                input.append(float(tup[i][1])/500)
-            while(len(input)<187):
-                    input.append(0)    
-            inpt_data = pd.DataFrame(data = [input])
-            new_model = tf.keras.models.load_model('ecg_model.h5') 
-            predictions = new_model.predict([inpt_data])
-            ypred = np.argmax(predictions, axis=1)
-            ans = 0
-            print(ypred)
-            for y in ypred:
-                if( y == 1 or y == 2 or y == 3 or y == 4):
-                    ans = y
-                    break
+        corners = None
+        sharpen = example(seg)
+        gray = cv2.cvtColor(sharpen, cv2.COLOR_BGR2GRAY)
+        ret, thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_BINARY)
+        corners = cv2.goodFeaturesToTrack(thresh, 186, 0.01, 5)
+        corners = np.int0(corners)
+        for corner in corners:
+            x, y = corner.ravel()
+            point = tuple((x,y))
+            points.append(point)
+        allpoints.append(points)
 
-        return render_template('index.html',label = ans)
 
-    return render_template('index.html')
+    points = []
+    sorted_points = []
+    for points in allpoints:
+        points = Sort_Tuple(points) 
+        sorted_points.append(points)                    
+    
+    for tup in sorted_points:
+        input = []
+        output = []
+        for i in range(0,len(tup)):
+            input.append(float(tup[i][1])/500)
+        while(len(input)<187):
+                input.append(0)    
+        inpt_data = pd.DataFrame(data = [input])
+        new_model = tf.keras.models.load_model('ecg_model.h5') 
+        predictions = new_model.predict([inpt_data])
+        ypred = np.argmax(predictions, axis=1)
+        ans = 0
+        print(ypred)
+        for y in ypred:
+            if( y == 1 or y == 2 or y == 3 or y == 4):
+                ans = y
+                break
+
+    return render_template('index.html',label = anomaly_mapping[ans])
+
 
 
 # Run Flask application 

@@ -2,38 +2,45 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Research Topic Modelling</title>
+    <title>ECG Report Analysis System</title>
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Research Topic Modelling</h1>
+      <h1>ECG Report Analysis System</h1>
 
-        <form id="emotion-form" action="{{ url_for('predict') }}" method="POST" enctype="multipart/form-data">
-            <input id="image" name="image" type="file" accept="image/*" required="required">
-            <br><br>
-            <button type="submit">Predict</button>
-        </form>
-        {{label}}    
-        <div id="background-shapes">
-            <div id="shape-1"></div>
-            <div id="shape-2"></div>
-            <div id="shape-3"></div>
-        </div>
+      <form id="emotion-form" action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+        <input id="image" name="image" type="file" required="required">
+        <br><br>
+        <button type="submit">Predict</button>
+      </form>
 
-        <div id="footer">
-            <p>Check out the code on:</p>
-            <a href="https://github.com/ShubhamMisar-12/ReasearchTextTopicModelling" target="_blank">GitHub</a>
-            <span>|</span>
-            <a href="https://www.kaggle.com/code/shubhammisar/topic-modelling-lda-tfidf" target="_blank">Kaggle</a>
-            <p>Connect with me:</p>
-            <a href="https://www.linkedin.com/in/shubham-sanjay-misar/" target="_blank">LinkedIn</a>
-            <span>|</span>
-            <a href="https://twitter.com/ShubhamMisar12" target="_blank">Twitter</a>
-        </div>
+      <div class="label-container">
+        {{ label }}
+      </div>
+            
+      <a href="/" class="reset-button">Reset</a>
+
+
+      <div id="background-shapes">
+        <div id="shape-1"></div>
+        <div id="shape-2"></div>
+        <div id="shape-3"></div>
+      </div>
+
+      <div id="footer">
+        <p>Check out the code on:</p>
+        <a href="https://github.com/ShubhamMisar-12/ReasearchTextTopicModelling" target="_blank">GitHub</a>
+        <span>|</span>
+        <a href="https://www.kaggle.com/code/shubhammisar/topic-modelling-lda-tfidf" target="_blank">Kaggle</a>
+        <p>Connect with me:</p>
+        <a href="https://www.linkedin.com/in/shubham-sanjay-misar/" target="_blank">LinkedIn</a>
+        <span>|</span>
+        <a href="https://twitter.com/ShubhamMisar12" target="_blank">Twitter</a>
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
+  </body>
 </html>
