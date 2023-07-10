@@ -70,7 +70,7 @@ python app.py
 
 ```
 
-2. Open a web browser and visit [http://localhost:5000](http://localhost:5000).
+2. Open a web browser and visit [Website](xxx).
 
 3. Upload an image of an ECG report.
 
